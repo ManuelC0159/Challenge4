@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./assests/styles.css">
+    <title>Quiz</title>
+</head>
+<body>
+    <header>BootCamp Quiz</header>
+
+    <section id ="HiSco">
+        <h1 id ="high-scores">High Scores</h1>
+        <input type ="text" placeholder="Name..." name="userName" id ="storeUserName" maxlenght = "8">
+        <button class="answers" id = "submit"></button>
+        <ul id ="allScores"></ul>
+    </section>
+
+    <section class ="TimnerStyle">
+        <h2 id ="timer"></h2>
+    </section>
+
+    <section class = "fullGame">
+        <h3 id = "head"></h3>
+        <h4 id = "text"></h4>
+        <button id ="button">start</button>
+        <div id ="answers">
+            <button class = "answers" id = "A" onclick="checkAnswer('A')"></button>
+            <button class = "answers" id = "B" onclick="checkAnswer('B')"></button>
+            <button class = "answers" id = "C" onclick="checkAnswer('C')"></button>
+            <button class = "answers" id = "D" onclick="checkAnswer('D')"></button>
+            <div id = "is-correct"></div>
+        </div>
+    </section>
+<script src ="./assests/script.js"></script>    
+</body>
+</html>
