@@ -12,12 +12,12 @@ var isCorrect = document.getElementById("is-correct");
 var storedUserName = document.getElementById("storeUserName");
 var scoreList = document.getElementById("allScores");
 var submit = document.getElementById("submit");
-
+var timerStyle = document.getElementById("timerStyle");
+//counts score
 var score = 0;
-
-var compare=[];
+//test to take 10 seconds from timer on wrong answer
 var takeFromTimer = 1;
-var timerStop= 0;
+//questions and answers
 var questions= [
     {
     question : "Commonly used data types of JavaScript DO NOT include: ",
@@ -30,7 +30,7 @@ var questions= [
     question: "What is Javascript?",
     ChoiceA : "JavaScript is a scripting language used to make the website interactive",
     ChoiceB : "JavaScript is an assembly language used to make the website interactive",
-    ChoiceC : "JavaScript is a compiled language used to make the website interactiv",
+    ChoiceC : "JavaScript is a compiled language used to make the website interactive",
     ChoiceD : "None of the mentioned",
     Correct: "A"
 },{
@@ -52,7 +52,7 @@ var questions= [
     ChoiceA : "A URL that uses the special javascript:code",
     ChoiceB : "A URL that uses the special javascript:protocol",
     ChoiceC : "A URL that uses the special javascript:encoding",
-    ChoiceD : " A URL that uses the special javascript:stack",
+    ChoiceD : "A URL that uses the special javascript:stack",
     Correct: "B"    
 }
 ];
@@ -60,7 +60,7 @@ var lastQuestion = questions.length -1;
 var currentQuestion = 0;
 var timeLeft = 50;
 
-
+//renders question
 function renderQuestion(){
     start.style.display = "none"
     text.textContent = undefined;
@@ -77,6 +77,7 @@ function renderQuestion(){
     choiceD.textContent = q.ChoiceD;
     
 }
+//timer function
 function countdown(){
     timeLeft = 50;
     var timeInterval =0;
@@ -89,7 +90,9 @@ function countdown(){
             }
         }  
 }
+//allows functions to start and end timer
 var counting = countdown();
+//actual timer
 function timer(){
     if(timeLeft >= 1){
         timerEl.textContent = timeLeft;
@@ -101,12 +104,13 @@ function timer(){
         }   
     }
     else if(timeLeft ==0){
+        timerStyle.style.display ="none";
         timerEl.textContent = 'Time is up!';
         timeIsUp();
         scoreRender();
     }
 }
-
+//runs when user runs out of time 
 function timeIsUp(){
     storedUserName.style.display = "none";
     scoreList.style.display = "none";
@@ -116,6 +120,7 @@ function timeIsUp(){
     choiceD.style.display = "none"
     head.style.display = "none";
 }
+//checks if correct as user answers
 function checkAnswer(answer){
     if(answer == questions[currentQuestion].Correct){
         takeFromTimer = 1;
@@ -135,7 +140,7 @@ function checkAnswer(answer){
         scoreRender();   
     }
 }
-
+//renders final score
 function scoreRender(){
     counting.stop();
     choiceA.style.display = "none"
@@ -147,7 +152,7 @@ function scoreRender(){
     text.textContent = "Score: " + score;
     getInfo(score);
 }
-
+//asks user if they wish to try again
 function tryAgain(){
     submit.style.display = "none";
     storedUserName.style.display = "none";
@@ -157,7 +162,7 @@ function tryAgain(){
     choiceC.style.display = "none"
     choiceD.style.display = "none"
     start.style.display ="block";
-    start.textContent = "Try again?";
+    start.textContent = "Try again";
     start.addEventListener("click", function(event){
         currentQuestion=0;
         isCorrect.textContent = "";
@@ -165,9 +170,9 @@ function tryAgain(){
         init();
     })
 }
+//prompt user to submit high score if it is greater than 2
 function getInfo(score){
     if(score >2){
-    timerStop = 1;
     storedUserName.style.display = "block";
     submit.style.display = "block"
     submit.textContent = "submit";
@@ -176,6 +181,7 @@ function getInfo(score){
         tryAgain();
     }
 }
+//submit button
 submit.addEventListener("click", function(event){
     event.preventDefault();
     var userText = storedUserName.value + " "+score;
@@ -190,6 +196,7 @@ submit.addEventListener("click", function(event){
     userText= "";
     tryAgain();
 })
+//before quiz startscreen
 function preStartQuiz(){
     head.textContent = "Coding Quiz Challenge!";
     text.textContent = "This is a JavaScript quiz to test and compare fundamentals!\nThe quiz is 5 questions long and you have 60 seconds\nClick the start button once you are ready!"
@@ -206,20 +213,22 @@ function preStartQuiz(){
         counting.stop();
         renderQuestion();
         counting.start();
-
-        
     });    
 }
 
-
-
+//initialize quiz
 function init(){
     timeLeft = 50;
+    timerStyle.style.display = "block";
+    timerStyle.textContent = "Timer: ";
     preStartQuiz();
 }
+//button to check saved high scores
 highScore.addEventListener("click", function(){
     scoreList.style.display = "block";
 })
+
+
 init();
 
 
